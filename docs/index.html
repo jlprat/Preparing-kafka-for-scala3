@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Preparing Apache Kafka for Scala 3</title>
+
+	<link rel="stylesheet" href="reveal.js/dist/reset.css">
+	<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+	<link rel="stylesheet" href="reveal.js/dist/theme/sky.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
+	<style type="text/css">
+		.reveal code:not(.hljs) {
+			color: gray;
+		}
+
+		.bold {
+			font-weight: bold !important;
+		}
+
+		.top_left {
+			position: absolute;
+			top: -250px;
+			right: 10px;
+			width: 40%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<img src="images/aiven-logo_RGB-wht-txt.svg" alt="Aiven Logo" class="top_left">
+				<h2 class="r-fit-text bold">Preparing Apache Kafka for Scala 3</h2>
+				<p>
+					<small>Josep Prat &mdash; @jlprat&nbsp;<a href="https://github.com/jlprat" target="_blank"><img
+								src="images/GitHub-Mark-64px.png" alt="GitHub Logo" width="32px" height="32px"
+								style="margin: 0"></a>&nbsp;<a href="https://twitter.com/jlprat" target="_blank"><img
+								src="images/twitter-mark.png" alt="Twitter Logo" width="32px" height="32px"
+								style="margin: 0"></a>&nbsp;&mdash; 2022/02/18
+					</small>
+				</p>
+			</section>
+			<section>
+				<h3>Overview</h3>
+				<ul>
+					<li class="fragment">Origin</li>
+					<li class="fragment">Challenges during the PoC</li>
+					<li class="fragment">What should we improve?</li>
+				</ul>
+			</section>
+		</div>
+	</div>
+
+	<script src="reveal.js/dist/reveal.js"></script>
+	<script src="reveal.js/plugin/notes/notes.js"></script>
+	<script src="reveal.js/plugin/markdown/markdown.js"></script>
+	<script src="reveal.js/plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
