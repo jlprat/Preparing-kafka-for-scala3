@@ -28,6 +28,26 @@
 			right: 10px;
 			width: 40%;
 		}
+
+		.top_left_slide {
+			position: absolute;
+			top: -150px;
+			right: 10px;
+			width: 40%;
+		}
+
+		.white_smoke_shadow {
+			color: whitesmoke !important;
+			text-shadow: 1px 1px 20px black !important;
+		}
+
+		.portrait {
+			height: 200px;
+			height: 200px;
+			position: absolute;
+			top: -50px;
+			right: 20px;
+		}
 	</style>
 </head>
 
@@ -47,11 +67,63 @@
 				</p>
 			</section>
 			<section>
-				<h3>Overview</h3>
-				<ul>
+				<h3>A Story in 3 acts</h3>
+				<ol>
 					<li class="fragment">Origin</li>
 					<li class="fragment">Challenges during the PoC</li>
 					<li class="fragment">What should we improve?</li>
+				</ol>
+			</section>
+			<section data-background="images/origin.jpg">
+				<h3 class="r-fit-text white_smoke_shadow">Origin</h3>
+			</section>
+			<section>
+				<h3>Who?</h3>
+				<h3 class="fragment">Why?</h3>
+				<h3 class="fragment">What?</h3>
+			</section>
+			<section>
+				<h3>Who?</h3>
+				<img class="portrait" src="images/josep_prat.jpg" alt="Josep Prat's portrait">
+				<h4>
+					Josep Prat
+				</h4>
+				<p>
+					If you are active in the Akka area of the Scala community you might have seen my handle.
+				</p>
+				<p>
+					Working at <a href="http://aiven.io" target="_blank" rel="noopener noreferrer">Aiven</a> as Manager
+					of the Open Source Program Office.
+				</p>
+			</section>
+			<section>
+				<h3>Why?</h3>
+				<p>Aiven offers Managed Open Source Data Infrastructure as a Service. For example: Apache Kafka,
+					PostgreSQL or OpenSearch among others.</p>
+			</section>
+			<section>
+				<h3>Why?</h3>
+				<p>The Open Source Program Office employs people to work full time on Open Source projects on the above
+					ecosystems.</p>
+			</section>
+			<section>
+				<h3>What?</h3>
+				<p>Apache Kafka is:</p>
+				<ul>
+					<li>Distributed event streaming platform</li>
+					<li>Extremely scalable</li>
+					<li>High throughput</li>
+					<li>High availability</li>
+				</ul>
+			</section>
+			<section>
+				<h3>What?</h3>
+				<p>Some internal details on Apache Kafka:</p>
+				<ul>
+					<li>23% of the codebase is Scala</li>
+					<li>73% is Java</li>
+					<li>Compiles against Scala 2.12 and 2.13</li>
+					<li>Uses Gradle as a build tool</li>
 				</ul>
 			</section>
 		</div>
