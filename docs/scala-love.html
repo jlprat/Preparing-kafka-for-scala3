@@ -18,9 +18,6 @@
 			color: gray;
 		}
 
-		.bold {
-			font-weight: bold !important;
-		}
 
 		.top_left {
 			position: absolute;
@@ -48,6 +45,17 @@
 			top: -50px;
 			right: 20px;
 		}
+
+		.reveal h3 {
+			font-weight: bold;
+		}
+
+		.hljs-comment,
+		.hljs-quote,
+		.hljs-deletion,
+		.hljs-meta {
+			color: #31d701;
+		}
 	</style>
 </head>
 
@@ -56,7 +64,7 @@
 		<div class="slides">
 			<section>
 				<img src="images/aiven-logo_RGB-wht-txt.svg" alt="Aiven Logo" class="top_left">
-				<h2 class="r-fit-text bold">Preparing Apache Kafka for Scala 3</h2>
+				<h2 class="r-fit-text">Preparing Apache Kafka for Scala 3</h2>
 				<img src="images/slidesQR.svg" alt="https://jlprat.github.io/Preparing-kafka-for-scala3/scala-love.html">
 				<p>
 					<small>Josep Prat &mdash; @jlprat&nbsp;<a href="https://github.com/jlprat" target="_blank"><img
@@ -292,7 +300,7 @@ val _ = new ClassWithVar("foo")</code></pre>
 			<section>
 				<h3>Handle Java varargs with parametrized T...</h3>
 				<p>Given this Java class:</p>
-				<pre data-d="code-animation"><code class="java" data-trim>public class TypedVarargs&lt;V&gt; {
+				<pre data-d="code-animation"><code class="java" data-trim data-line-numbers="">public class TypedVarargs&lt;V&gt; {
 	public TypedVarargs&lt;V&gt; varArgs(V thing, V... things) {
 		return this;
 		}
@@ -317,17 +325,17 @@ val y = x.varArgs(1L)</code></pre>
 			<section>
 				<h3>Type erased for by-name parameters</h3>
 				<p>Given this code:</p>
-				<pre data-d="code-animation"><code class="scala" data-trim>object ByNameParam {
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="">object ByNameParam {
 	def byNameParam(str: => String): Unit = {}
 }</code></pre>
 			</section>
 			<section>
 				<p>Output of <code>javap ByNameParam.class</code>:</p>
-				<pre data-d="code-animation"><code class="scala" data-trim data-trim data-line-numbers="|2">public final class ByNameParam {
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2">public final class ByNameParam {
 	public static void byNameParam(scala.Function0);
 }</code></pre>
 				<p>But should be:</p>
-				<pre data-d="code-animation"><code class="scala" data-trim data-trim data-line-numbers="|2">public final class ByNameParam {
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2">public final class ByNameParam {
 	public static void byNameParam(scala.Function0&lt;java.lang.String&gt;);
 }</code></pre>
 			</section>
@@ -346,7 +354,26 @@ val y = x.varArgs(1L)</code></pre>
 				<h3 class="r-fit-text white_smoke_shadow">What should we improve?</h3>
 			</section>
 			<section>
-				<h3></h3>
+				<h3>Fading away?</h3>
+				<p>Apache Kafka went from 50% Scala codebase to the current 23%.</p>
+				<p class="fragment">Apache Flink no longer exposes a specific Scala version.</p>
+			</section>
+			<section>
+				<h3>Why wasn't more straightforward?</h3>
+				<p>Java &rarr; Scala interoperability improved substantially in 2.12 and 2.13.</p>
+				<p class="fragment">Dotty followed kind of a parallel line branching out in 2.11.</p>
+			</section>
+			<section>
+				<h3>Community build</h3>
+				<p>We need more non-fully Scala friendly environment.</p>
+				<p class="fragment">To include projects on the fringe of the core of the Scala community.</p>
+			</section>
+			<section>
+				<h3>Mixed Java/Scala projects</h3>
+				<p>We, the Scala community, need to get closer to these projects.</p>
+			</section>
+			<section data-background="images/local.jpg">
+				<h3 class="white_smoke_shadow">Drop by your local Java/Scala OSS Project!</h3>
 			</section>
 			<section>
 				<h3>Further Info:</h3>
@@ -357,6 +384,8 @@ val y = x.varArgs(1L)</code></pre>
 							of concept</a></li>
 					<li><a href="https://github.com/apache/kafka/pull/11432" target="_blank" rel="noopener noreferrer">In
 							between step</a></li>
+					<li><a href="https://aiven.io/blog/preparing-apache-kafka-for-scala-3" target="_blank"
+							rel="noopener noreferrer">Blog post that originated this talk</a></li>
 				</ul>
 			</section>
 			<section>
@@ -386,7 +415,6 @@ val y = x.varArgs(1L)</code></pre>
 		Reveal.initialize({
 			hash: true,
 			slideNumber: true,
-			previewLinks: true,
 			// Learn about plugins: https://revealjs.com/plugins/
 			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
 		});
