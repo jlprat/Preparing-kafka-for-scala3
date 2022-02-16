@@ -70,6 +70,14 @@
 			bottom: 40px;
 			left: 50px;
 		}
+
+		.green {
+			color: green;
+		}
+
+		.red {
+			color: red;
+		}
 	</style>
 </head>
 
@@ -189,7 +197,7 @@
 						target="_blank" rel="noopener noreferrer">gradle/gradle/pull/18001</a></p>
 			</section>
 			<section>
-				<h3>Status: &#10003;</h3>
+				<h3>Status: <span class="green">&#10003;</span></h3>
 				<p>Issue under <a href="https://github.com/gradle/gradle/issues/16527" target="_blank"
 						rel="noopener noreferrer">gradle/gradle/16527</a></p>
 				<p>From version: 7.3.0</p>
@@ -200,14 +208,14 @@
   // assertThrows has 3 overloads, 2 with 3 parameters and
   // 1 with only 2 parameters.
 
-  // This overload is taking a subclasss of `Throwable`, 
+  // This overload is taking a subclass of `Throwable`, 
   // and an `Executable` which is a parameterless SAM 
   // returning void
   assertThrows(classOf[IllegalArgumentException],
                () => 3)
 	// Compiles
 
-	// This overload is taking a subclasss of `Throwable`,
+	// This overload is taking a subclass of `Throwable`,
 	// an `Executable` which is a parameterless SAM 
 	// returning void, and a `String`
 	assertThrows(classOf[IllegalArgumentException], 
@@ -215,7 +223,7 @@
 				       "This is a message")
   // Doesn't compile in 3.0
 
-	//This overload is taking a subclasss of `Throwable`,
+	//This overload is taking a subclass of `Throwable`,
 	// an `Executable` which is a parameterless SAM
 	// returning void, and a `Supplier` returning `String`
 	assertThrows(classOf[IllegalArgumentException],
@@ -260,7 +268,7 @@
 }</code></pre>
 			</section>
 			<section>
-				<h3>Status: Not solved &#10007;</h3>
+				<h3>Status: Not solved <span class="red">&#10007;</span></h3>
 				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13549" target="_blank"
 						rel="noopener noreferrer">lampepfl/dotty/issue/13549</a></p>
 				<p>It conflicts with existing Scala 3 code making functional code fail.</p>
@@ -295,7 +303,7 @@ trait ObjectTraitPair {
 }</code></pre>
 			</section>
 			<section>
-				<h3>Status: &#10003;</h3>
+				<h3>Status: <span class="green">&#10003;</span></h3>
 				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13572" target="_blank"
 						rel="noopener noreferrer">lampepfl/dotty/13572</a></p>
 				<p>From Scala version: 3.1.0</p>
@@ -319,7 +327,7 @@ class ClassWithVar(_msg: String)
 val _ = new ClassWithVar("foo")</code></pre>
 			</section>
 			<section>
-				<h3>Status: &#10003;</h3>
+				<h3>Status: <span class="green">&#10003;</span></h3>
 				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13630" target="_blank"
 						rel="noopener noreferrer">lampepfl/dotty/13630</a></p>
 				<p>From Scala version: 3.1.1</p>
@@ -344,7 +352,7 @@ val y = x.varArgs(1L)
 val y = x.varArgs(1L)</code></pre>
 			</section>
 			<section>
-				<h3>Status: &#10003;</h3>
+				<h3>Status: <span class="green">&#10003;</span></h3>
 				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13645" target="_blank"
 						rel="noopener noreferrer">lampepfl/dotty/13645</a></p>
 				<p>From Scala version: 3.1.1</p>
@@ -367,7 +375,7 @@ val y = x.varArgs(1L)</code></pre>
 }</code></pre>
 			</section>
 			<section>
-				<h3>Status: &#10003; (Prerelease)</h3>
+				<h3>Status: <span class="green">&#10003;</span> (Prerelease)</h3>
 				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13638" target="_blank"
 						rel="noopener noreferrer">lampepfl/dotty/13638</a></p>
 				<p>From Scala version: 3.1.2-RC1</p>
@@ -386,37 +394,37 @@ val y = x.varArgs(1L)</code></pre>
 						<tr>
 							<td><a href="https://github.com/gradle/gradle/issues/16527" target="_blank"
 									rel="noopener noreferrer">gradle/gradle/16527</a></td>
-							<td>&#10003;</td>
+							<td><span class="green">&#10003;</span></td>
 							<td>Gradle 7.3.0</td>
 						</tr>
 						<tr>
 							<td><a href="https://github.com/lampepfl/dotty/issues/13549" target="_blank"
 									rel="noopener noreferrer">lampepfl/dotty/13549</a></td>
-							<td>&#10007;</td>
+							<td><span class="red">&#10007;</span></td>
 							<td>N/A</td>
 						</tr>
 						<tr>
 							<td><a href="https://github.com/lampepfl/dotty/issues/13572" target="_blank"
 									rel="noopener noreferrer">lampepfl/dotty/13572</a></td>
-							<td>&#10003;</td>
+							<td><span class="green">&#10003;</span></td>
 							<td>Scala 3.1.0</td>
 						</tr>
 						<tr>
 							<td><a href="https://github.com/lampepfl/dotty/issues/13630" target="_blank"
 									rel="noopener noreferrer">lampepfl/dotty/13630</a></td>
-							<td>&#10003;</td>
+							<td><span class="green">&#10003;</span></td>
 							<td>Scala 3.1.1</td>
 						</tr>
 						<tr>
 							<td><a href="https://github.com/lampepfl/dotty/issues/13645" target="_blank"
 									rel="noopener noreferrer">lampepfl/dotty/13645</a></td>
-							<td>&#10003;</td>
+							<td><span class="green">&#10003;</span></td>
 							<td>Scala 3.1.1</td>
 						</tr>
 						<tr>
 							<td><a href="https://github.com/lampepfl/dotty/issues/13638" target="_blank"
 									rel="noopener noreferrer">lampepfl/dotty/13638</a></td>
-							<td>&#10003;</td>
+							<td><span class="green">&#10003;</span></td>
 							<td>Scala 3.1.2-RC1</td>
 						</tr>
 					</tbody>
