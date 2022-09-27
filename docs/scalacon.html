@@ -1,0 +1,505 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Preparing Apache Kafka for Scala 3</title>
+
+	<link rel="stylesheet" href="reveal.js/dist/reset.css">
+	<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+	<link rel="stylesheet" href="reveal.js/dist/theme/sky.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
+	<style type="text/css">
+		.reveal code:not(.hljs) {
+			color: #452ee2;
+			font-weight: bold;
+		}
+
+		.reveal small.disclaimer {
+			font-size: 18px;
+		}
+
+		.reveal pre {
+			width: 100%;
+		}
+
+		.top_left {
+			position: absolute;
+			top: -150px;
+			right: 10px;
+			width: 40%;
+		}
+
+		.top_left_slide {
+			position: absolute;
+			top: -150px;
+			right: 10px;
+			width: 40%;
+		}
+
+		.white_smoke_shadow {
+			color: whitesmoke !important;
+			text-shadow: 1px 1px 20px black !important;
+		}
+
+		.portrait {
+			height: 200px;
+			height: 200px;
+			position: absolute;
+			top: -50px;
+			right: 20px;
+		}
+
+		.reveal h3 {
+			font-weight: bold;
+		}
+
+		.hljs-comment,
+		.hljs-quote,
+		.hljs-deletion,
+		.hljs-meta {
+			color: #31d701;
+		}
+
+		footer {
+			position: absolute;
+			bottom: 40px;
+			left: 50px;
+		}
+
+		.green {
+			color: green;
+		}
+
+		.red {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<img src="images/aiven-logo_RGB-wht-txt.svg" alt="Aiven Logo" class="top_left">
+				<h2>Preparing Apache Kafka for Scala 3</h2>
+			</section>
+			<section>
+				<h3>A Story in 3 acts</h3>
+				<ol>
+					<li class="fragment">Origin</li>
+					<li class="fragment">Challenges during the PoC</li>
+					<li class="fragment">What should we improve?</li>
+				</ol>
+			</section>
+			<section data-background="images/origin.jpg">
+				<h3 class="r-fit-text white_smoke_shadow">Origin</h3>
+			</section>
+			<section>
+				<h3>Who?</h3>
+				<h3 class="fragment">Why?</h3>
+				<h3 class="fragment">What?</h3>
+			</section>
+			<section>
+				<h3>Who?</h3>
+				<img class="portrait" src="images/josep_prat.jpg" alt="Josep Prat's portrait">
+				<h4>
+					Josep Prat
+				</h4>
+				<p>
+					Might have seen me around Akka.
+				</p>
+				<p>
+					Working at <a href="http://aiven.io" target="_blank" rel="noopener noreferrer">Aiven</a>.<br>
+					Manager of the Open Source Program Office.
+				</p>
+			</section>
+			<section>
+				<h3>Why?</h3>
+				<p>Aiven offers Managed Open Source Data Infrastructure as a Service.</p>
+				<div>
+					<img src="images/kafka_highres.png" alt="Apache Kafka Logo" width="200px" class="fragment">
+					<img src="images/flink2_500_color_black.png" alt="Apache Flink Logo" width="200px" class="fragment">
+					<img src="images/PostgreSQL_logo.3colors.540x557.png" alt="PostgreSQL Slonik" width="200px" class="fragment">
+					<img src="images/opensearch_logo_default.png" alt="OpenSearch Logo" width="200px" class="fragment">
+				</div>
+				<p class="fragment">And many more&hellip;</p>
+				<small class="disclaimer fragment"><em>Apache Kafka, Apache Flink, PostgreSQL and OpenSearch are trademarks of
+						their
+						respective
+						owners.</em></small>
+			</section>
+			<section>
+				<h3>Why?</h3>
+				<p>The Open Source Program Office employs people to work full time on Open Source projects.</p>
+			</section>
+			<section>
+				<h3>What?</h3>
+				<p>Apache Kafka is:</p>
+				<ul>
+					<li class="fragment">Distributed event streaming platform</li>
+					<li class="fragment">Extremely scalable</li>
+					<li class="fragment">High throughput</li>
+					<li class="fragment">High availability</li>
+				</ul>
+			</section>
+			<section>
+				<h3>What?</h3>
+				<p>Some internal details on Apache Kafka:</p>
+				<div>
+					<div style="width: 50%; float: right;"><img src="images/chart.svg" alt="Code percentage for Apache Kafka"
+							class="fragment">
+					</div>
+					<div style="width: 50%;">
+						<ul>
+							<li class="fragment">Compiles against Scala 2.12 and 2.13</li>
+							<li class="fragment">Uses Gradle as a build tool</li>
+							<li class="fragment">Kafka Core is mostly written in Scala</li>
+							<li class="fragment">No macros nor typeclasses</li>
+						</ul>
+					</div>
+				</div>
+
+			</section>
+			<section>
+				<h3>What?</h3>
+				<p>Seemed like a walk in the park&hellip;</p>
+				<p class="fragment">&hellip;or not!</p>
+			</section>
+			<section data-background="images/trail.jpg">
+				<h3 class="r-fit-text white_smoke_shadow">Challenges during the PoC</h3>
+			</section>
+			<section>
+				<h3>Gradle</h3>
+				<p>How complicated could it be to compile using the Scala 3 compiler instead?</p>
+			</section>
+			<section>
+				<h3>Gradle</h3>
+				<p>One might think:</p>
+				<ul>
+					<li class="fragment">Change <code>dependencies.gradle</code></li>
+					<li class="fragment">Change <code>build.gradle</code></li>
+					<li class="fragment">Do some magic with version names</li>
+					<li class="fragment">Profit</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Easy, right?</h3>
+				<img src="images/pr10934.png" width="50%" alt="pr10934 in Kafka">
+			</section>
+			<section>
+				<h3>I was wrong&hellip;</h3>
+				<p>Big kudos to Tomasz Godzik!</p>
+				<p>For singlehandedly introducing support for Scala 3! <a href="https://github.com/gradle/gradle/pull/18001"
+						target="_blank" rel="noopener noreferrer">gradle/gradle/pull/18001</a></p>
+			</section>
+			<section>
+				<h3>Status: <span class="green">&#10003;</span></h3>
+				<p>Issue under <a href="https://github.com/gradle/gradle/issues/16527" target="_blank"
+						rel="noopener noreferrer">gradle/gradle/16527</a></p>
+				<p>From version: 7.3.0</p>
+			</section>
+			<section>
+				<h3>Unit SAM and overloads</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|28-38|5-9|10|12-17|18|20-25|26">object Reproducer {
+  // assertThrows has 3 overloads, 2 with 3 parameters and
+  // 1 with only 2 parameters.
+
+  // This overload is taking a subclass of `Throwable`, 
+  // and an `Executable` which is a parameterless SAM 
+  // returning void
+  assertThrows(classOf[IllegalArgumentException],
+               () => 3)
+	// Compiles
+
+	// This overload is taking a subclass of `Throwable`,
+	// an `Executable` which is a parameterless SAM 
+	// returning void, and a `String`
+	assertThrows(classOf[IllegalArgumentException], 
+               () => 3, 
+				       "This is a message")
+  // Doesn't compile in 3.0
+
+	//This overload is taking a subclass of `Throwable`,
+	// an `Executable` which is a parameterless SAM
+	// returning void, and a `Supplier` returning `String`
+	assertThrows(classOf[IllegalArgumentException],
+	             () => 3,
+				       () => "This is a message")
+  // Doesn't compile in 3.0
+
+	def assertThrows[T &lt;: Throwable](clazz: Class[T], 
+	                                 executable: Executable
+									                 ):Unit=???
+	def assertThrows[T &lt;: Throwable](clazz: Class[T],
+									                 executable: Executable,
+									                 message: String
+									                 ): Unit=???
+	def assertThrows[T &lt;: Throwable](clazz: Class[T],
+									                 executable: Executable,
+									                 supplier: Supplier[String]
+									                 ): Unit=???
+	
+	@FunctionalInterface
+	trait Executable {
+		@throws[Throwable]
+		def execute(): Unit
+	}
+}
+				</code></pre>
+			</section>
+			<section>
+				<h3>Workaround</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-3|5-7|9-11">object Reproducer {
+	assertThrows(classOf[IllegalArgumentException],
+							 () => 3)
+
+	assertThrows(classOf[IllegalArgumentException], 
+							 () => {3; ()}, 
+							 "This is a message")
+
+	assertThrows(classOf[IllegalArgumentException],
+							 () => {3; ()},
+							 () => "This is a message")
+
+}</code></pre>
+			</section>
+			<section>
+				<h3>Status: Not solved <span class="red">&#10007;</span></h3>
+				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13549" target="_blank"
+						rel="noopener noreferrer">lampepfl/dotty/issue/13549</a></p>
+				<p>It conflicts with existing Scala 3 code making functional code fail.</p>
+			</section>
+			<section>
+				<h3>No static forwarder methods in trait companion</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|1-3|8-10|5-7">object ObjectTraitPair {
+	val Constant: String = "Some Text"
+}
+
+// In Scala 2.13 this class bytecode will carry over
+// any val and def defined in the object with the same name
+// but not in Scala 3.0
+trait ObjectTraitPair {
+	val method: String = "bye"
+}</code></pre>
+			</section>
+			<section>
+				<h3>Bytecode discrepancy</h3>
+				<p>Output of <code>javap ObjectTraitPair.class</code>:</p>
+				<pre data-d="code-animation"><code class="scala" data-trim>public interface ObjectTraitPair {
+	public static void $init$(example.ObjectTraitPair);
+	public abstract java.lang.String method();
+	public abstract void example$ObjectTraitPair$_setter_$method_$eq(java.lang.String);
+}</code></pre>
+				<p>But it should be:</p>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2">public interface ObjectTraitPair {
+	public static java.lang.String Constant();
+	public abstract void example$ObjectTraitPair$_setter_$method_$eq(java.lang.String);
+	public abstract java.lang.String method();
+	public static void $init$(example.ObjectTraitPair);
+}</code></pre>
+			</section>
+			<section>
+				<h3>Status: <span class="green">&#10003;</span></h3>
+				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13572" target="_blank"
+						rel="noopener noreferrer">lampepfl/dotty/13572</a></p>
+				<p>From Scala version: 3.1.0</p>
+			</section>
+			<section>
+				<h3>Variable handling in super calls</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-3|4-6">class ClassWithLambda(sup: () => Long)
+class ClassWithVar(var msg: String)
+		  extends ClassWithLambda(() => 1)
+val _ = new ClassWithVar("foo")
+// Throws at runtime!
+// java.lang.VerifyError: Bad type on operand stack</code></pre>
+			</section>
+			<section>
+				<h3>But this works!</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-5">class ClassWithLambda(sup: () => Long)
+class ClassWithVar(_msg: String) 
+      extends ClassWithLambda(() => 1) {
+	var msg: String = _msg
+}
+val _ = new ClassWithVar("foo")</code></pre>
+			</section>
+			<section>
+				<h3>Status: <span class="green">&#10003;</span></h3>
+				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13630" target="_blank"
+						rel="noopener noreferrer">lampepfl/dotty/13630</a></p>
+				<p>From Scala version: 3.1.1</p>
+			</section>
+			<section>
+				<h3>Handle Java varargs with parametrized T...</h3>
+				<p>Given this Java class:</p>
+				<pre data-d="code-animation"><code class="java" data-trim data-line-numbers="">public class TypedVarargs&lt;V&gt; {
+	public TypedVarargs&lt;V&gt; varArgs(V thing, V... things) {
+		return this;
+		}
+	}</code></pre>
+				<p>And this Scala one:</p>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2|3-4">val x = new TypedVarargs[Long]()
+val y = x.varArgs(1L)
+// This throws at runtime: 
+// java.lang.ClassCastException: [J cannot be cast to [Ljava.lang.Object;</code></pre>
+			</section>
+			<section>
+				<h3>Workaround</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|1">val x = new TypedVarargs[java.lang.Long]()
+val y = x.varArgs(1L)</code></pre>
+			</section>
+			<section>
+				<h3>Status: <span class="green">&#10003;</span></h3>
+				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13645" target="_blank"
+						rel="noopener noreferrer">lampepfl/dotty/13645</a></p>
+				<p>From Scala version: 3.1.1</p>
+			</section>
+			<section>
+				<h3>Type erased for by-name parameters</h3>
+				<p>Given this code:</p>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2">object ByNameParam {
+	def byNameParam(str: => String): Unit = {}
+}</code></pre>
+			</section>
+			<section>
+				<p>Output of <code>javap ByNameParam.class</code>:</p>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2">public final class ByNameParam {
+	public static void byNameParam(scala.Function0);
+}</code></pre>
+				<p>But should be:</p>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2">public final class ByNameParam {
+	public static void byNameParam(scala.Function0&lt;java.lang.String&gt;);
+}</code></pre>
+			</section>
+			<section>
+				<h3>Status: <span class="green">&#10003;</span> (Prerelease)</h3>
+				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13638" target="_blank"
+						rel="noopener noreferrer">lampepfl/dotty/13638</a></p>
+				<p>From Scala version: 3.1.2-RC1</p>
+			</section>
+			<section>
+				<h3>Summary:</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Issue</th>
+							<th>Status</th>
+							<th>Since</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><a href="https://github.com/gradle/gradle/issues/16527" target="_blank"
+									rel="noopener noreferrer">gradle/gradle/16527</a></td>
+							<td><span class="green">&#10003;</span></td>
+							<td>Gradle 7.3.0</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/lampepfl/dotty/issues/13549" target="_blank"
+									rel="noopener noreferrer">lampepfl/dotty/13549</a></td>
+							<td><span class="red">&#10007;</span></td>
+							<td>N/A</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/lampepfl/dotty/issues/13572" target="_blank"
+									rel="noopener noreferrer">lampepfl/dotty/13572</a></td>
+							<td><span class="green">&#10003;</span></td>
+							<td>Scala 3.1.0</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/lampepfl/dotty/issues/13630" target="_blank"
+									rel="noopener noreferrer">lampepfl/dotty/13630</a></td>
+							<td><span class="green">&#10003;</span></td>
+							<td>Scala 3.1.1</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/lampepfl/dotty/issues/13645" target="_blank"
+									rel="noopener noreferrer">lampepfl/dotty/13645</a></td>
+							<td><span class="green">&#10003;</span></td>
+							<td>Scala 3.1.1</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/lampepfl/dotty/issues/13638" target="_blank"
+									rel="noopener noreferrer">lampepfl/dotty/13638</a></td>
+							<td><span class="green">&#10003;</span></td>
+							<td>Scala 3.1.2-RC1</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h1>
+					<code>&lt;irony&gt;</code><br>Easy, huh?<br><code>&lt;/irony&gt;</code>
+				</h1>
+			</section>
+			<section data-background="images/summit.jpg">
+				<h3 class="r-fit-text white_smoke_shadow">What should we improve?</h3>
+			</section>
+			<section>
+				<h3>Fading away?</h3>
+				<img src="images/java-scala-chart.svg"
+					alt="Evolution of Java and Scala in lines of code per version in Apache Kafka">
+			</section>
+			<section>
+				<h3>why wasn't it more straightforward?</h3>
+				<p>Java &rarr; Scala interoperability improved substantially in 2.12 and 2.13.</p>
+				<p class="fragment">Dotty followed kind of a parallel line branching out in 2.11.</p>
+			</section>
+			<section>
+				<h3>Community build</h3>
+				<p>We need more non-fully Scala friendly environment.</p>
+				<p class="fragment">To include projects on the fringe of the core of the Scala community.</p>
+			</section>
+			<section>
+				<h3>Mixed Java/Scala projects</h3>
+				<p>We, the Scala community, need to get closer to these projects.</p>
+			</section>
+			<section data-background="images/local.jpg">
+				<h3 class="white_smoke_shadow">Drop by your local Java/Scala OSS Project!</h3>
+			</section>
+			<section>
+				<h3>Further Info:</h3>
+				<ul>
+					<li><a href="https://lists.apache.org/thread/q9b97d4ofjcwt8ymkr3ksxysmhc6vm1n" target="_blank"
+							rel="noopener noreferrer">Mailing list thread</a></li>
+					<li><a href="https://github.com/apache/kafka/pull/11350" target="_blank" rel="noopener noreferrer">Big proof
+							of concept</a></li>
+					<li><a href="https://github.com/apache/kafka/pull/11432" target="_blank" rel="noopener noreferrer">In
+							between step</a></li>
+					<li><a href="https://aiven.io/blog/preparing-apache-kafka-for-scala-3" target="_blank"
+							rel="noopener noreferrer">Blog post that originated this talk</a></li>
+				</ul>
+			</section>
+			<section>
+				<h1>Thanks!</h1>
+				<img src="images/scalaconQR.svg" alt="https://jlprat.github.io/Preparing-kafka-for-scala3/scalacon.html">
+			</section>
+		</div>
+		<footer>
+			Josep Prat &mdash; @jlprat
+		</footer>
+
+	</div>
+
+	<script src="reveal.js/dist/reveal.js"></script>
+	<script src="reveal.js/plugin/notes/notes.js"></script>
+	<script src="reveal.js/plugin/markdown/markdown.js"></script>
+	<script src="reveal.js/plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			slideNumber: true,
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
