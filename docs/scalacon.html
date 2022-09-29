@@ -14,6 +14,27 @@
 	<!-- Theme used for syntax highlighted code -->
 	<link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
 	<style type="text/css">
+		.reveal,
+		.reveal h2,
+		.reveal h3 {
+			font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif !important;
+			--r-main-font-size: 40px !important;
+			--r-block-margin: 20px !important;
+			--r-heading-margin: 0 0 20px 0 !important;
+			--r-heading-font: Palatino Linotype, Book Antiqua, Palatino, FreeSerif, serif !important;
+			--r-heading-line-height: 1.2 !important;
+			--r-heading-letter-spacing: normal !important;
+			--r-heading-text-transform: none !important;
+			--r-heading-text-shadow: none !important;
+			--r-heading-font-weight: normal !important;
+			--r-heading1-text-shadow: none !important;
+			--r-heading1-size: 3.77em !important;
+			--r-heading2-size: 2.11em !important;
+			--r-heading3-size: 1.55em !important;
+			--r-heading4-size: 1em !important;
+		}
+
+
 		.reveal code:not(.hljs) {
 			color: #452ee2;
 			font-weight: bold;
@@ -31,7 +52,7 @@
 			position: absolute;
 			top: -150px;
 			right: 10px;
-			width: 40%;
+			max-height: 3em !important;
 		}
 
 		.top_left_slide {
@@ -44,6 +65,13 @@
 		.white_smoke_shadow {
 			color: whitesmoke !important;
 			text-shadow: 1px 1px 20px black !important;
+		}
+
+		.white_smoke_background {
+			color: whitesmoke !important;
+			background-color: rgba(28, 27, 27, 0.7);
+			padding: 0 30px;
+			width: fit-content;
 		}
 
 		.portrait {
@@ -65,10 +93,19 @@
 			color: #31d701;
 		}
 
-		footer {
-			position: absolute;
-			bottom: 40px;
-			left: 50px;
+		@media screen and (min-width: 40px) {
+			footer {
+				position: absolute;
+				bottom: 40px;
+				left: 50px;
+				font-size: 0.5em;
+			}
+		}
+
+		@media screen and (min-width: 1024px) {
+			footer {
+				font-size: 1em;
+			}
 		}
 
 		.green {
@@ -77,6 +114,31 @@
 
 		.red {
 			color: red;
+		}
+
+		reveal h3 {
+			font-weight: bold;
+		}
+
+		.print-pdf footer {
+			position: absolute;
+			bottom: -406px;
+			left: 50px;
+		}
+
+		.print-pdf .top_left {
+			position: relative;
+			top: 0;
+			left: 244px;
+			max-width: 340px;
+		}
+
+		.print-only {
+			display: none;
+		}
+
+		.print-pdf .print-only {
+			display: block;
 		}
 	</style>
 </head>
@@ -101,37 +163,24 @@
 			</section>
 			<section>
 				<h3>Who?</h3>
-				<h3 class="fragment">Why?</h3>
-				<h3 class="fragment">What?</h3>
-			</section>
-			<section>
-				<h3>Who?</h3>
 				<img class="portrait" src="images/josep_prat.jpg" alt="Josep Prat's portrait">
 				<h4>
 					Josep Prat
 				</h4>
 				<p>
-					Might have seen me around Akka.
+					Might have seen me at the Akka corner some years ago.
 				</p>
 				<p>
 					Working at <a href="http://aiven.io" target="_blank" rel="noopener noreferrer">Aiven</a>.<br>
-					Manager of the Open Source Program Office.
+					Director of the Open Source Program Office.
 				</p>
 			</section>
 			<section>
 				<h3>Why?</h3>
 				<p>Aiven offers Managed Open Source Data Infrastructure as a Service.</p>
-				<div>
-					<img src="images/kafka_highres.png" alt="Apache Kafka Logo" width="200px" class="fragment">
-					<img src="images/flink2_500_color_black.png" alt="Apache Flink Logo" width="200px" class="fragment">
-					<img src="images/PostgreSQL_logo.3colors.540x557.png" alt="PostgreSQL Slonik" width="200px" class="fragment">
-					<img src="images/opensearch_logo_default.png" alt="OpenSearch Logo" width="200px" class="fragment">
-				</div>
-				<p class="fragment">And many more&hellip;</p>
-				<small class="disclaimer fragment"><em>Apache Kafka, Apache Flink, PostgreSQL and OpenSearch are trademarks of
-						their
-						respective
-						owners.</em></small>
+				<img src="images/kafka_highres.png" alt="Apache Kafka Logo" width="200px" class="fragment">
+				<p class="fragment">Among many others&hellip;</p>
+				<small class="disclaimer fragment"><em>Apache Kafka,is a trademark of their respective owners.</em></small>
 			</section>
 			<section>
 				<h3>Why?</h3>
@@ -151,7 +200,7 @@
 				<h3>What?</h3>
 				<p>Some internal details on Apache Kafka:</p>
 				<div>
-					<div style="width: 50%; float: right;"><img src="images/chart.svg" alt="Code percentage for Apache Kafka"
+					<div style="width: 50%; float: right;"><img src="images/chart-new.svg" alt="Code percentage for Apache Kafka"
 							class="fragment">
 					</div>
 					<div style="width: 50%;">
@@ -376,10 +425,10 @@ val y = x.varArgs(1L)</code></pre>
 }</code></pre>
 			</section>
 			<section>
-				<h3>Status: <span class="green">&#10003;</span> (Prerelease)</h3>
+				<h3>Status: <span class="green">&#10003;</span></h3>
 				<p>Issue under <a href="https://github.com/lampepfl/dotty/issues/13638" target="_blank"
 						rel="noopener noreferrer">lampepfl/dotty/13638</a></p>
-				<p>From Scala version: 3.1.2-RC1</p>
+				<p>From Scala version: 3.1.2</p>
 			</section>
 			<section>
 				<h3>Summary:</h3>
@@ -426,7 +475,7 @@ val y = x.varArgs(1L)</code></pre>
 							<td><a href="https://github.com/lampepfl/dotty/issues/13638" target="_blank"
 									rel="noopener noreferrer">lampepfl/dotty/13638</a></td>
 							<td><span class="green">&#10003;</span></td>
-							<td>Scala 3.1.2-RC1</td>
+							<td>Scala 3.1.2 </td>
 						</tr>
 					</tbody>
 				</table>
@@ -436,16 +485,25 @@ val y = x.varArgs(1L)</code></pre>
 					<code>&lt;irony&gt;</code><br>Easy, huh?<br><code>&lt;/irony&gt;</code>
 				</h1>
 			</section>
+			<section>
+				<h3>But sure this is now all done</h3>
+				<h3 class="fragment">right?</h3>
+			</section>
+			<section>
+				<h3>It looks we need to sit tight</h3>
+				<p>Migration will happen for Apache Kafka 4.0.0 release.</p>
+				<p class="fragment">And this looks to be still 1 year in the future.</p>
+			</section>
 			<section data-background="images/summit.jpg">
 				<h3 class="r-fit-text white_smoke_shadow">What should we improve?</h3>
 			</section>
 			<section>
 				<h3>Fading away?</h3>
-				<img src="images/java-scala-chart.svg"
+				<img src="images/java-scala-chart-new.svg"
 					alt="Evolution of Java and Scala in lines of code per version in Apache Kafka">
 			</section>
 			<section>
-				<h3>why wasn't it more straightforward?</h3>
+				<h3>Why wasn't it more straightforward?</h3>
 				<p>Java &rarr; Scala interoperability improved substantially in 2.12 and 2.13.</p>
 				<p class="fragment">Dotty followed kind of a parallel line branching out in 2.11.</p>
 			</section>
@@ -458,18 +516,23 @@ val y = x.varArgs(1L)</code></pre>
 				<h3>Mixed Java/Scala projects</h3>
 				<p>We, the Scala community, need to get closer to these projects.</p>
 			</section>
-			<section data-background="images/local.jpg">
-				<h3 class="white_smoke_shadow">Drop by your local Java/Scala OSS Project!</h3>
+			<section>
+				<h3>Lack of Scala Understanding</h3>
+				<p>Some projects don't have "in house" Scala experts.</p>
+				<p class="fragment">And historically, Scala migrations have been tedious.</p>
+			</section>
+			<section data-background="images/together.jpg">
+				<h3 class="white_smoke_shadow">Join some Java/Scala OSS Projects!</h3>
 			</section>
 			<section>
 				<h3>Further Info:</h3>
 				<ul>
 					<li><a href="https://lists.apache.org/thread/q9b97d4ofjcwt8ymkr3ksxysmhc6vm1n" target="_blank"
 							rel="noopener noreferrer">Mailing list thread</a></li>
-					<li><a href="https://github.com/apache/kafka/pull/11350" target="_blank" rel="noopener noreferrer">Big proof
-							of concept</a></li>
-					<li><a href="https://github.com/apache/kafka/pull/11432" target="_blank" rel="noopener noreferrer">In
-							between step</a></li>
+					<li><a href="https://github.com/apache/kafka/pull/11350" target="_blank" rel="noopener noreferrer">[Pull
+							Request] Big proof of concept</a></li>
+					<li><a href="https://github.com/apache/kafka/pull/11432" target="_blank" rel="noopener noreferrer">[Pull
+							Request] In between step</a></li>
 					<li><a href="https://aiven.io/blog/preparing-apache-kafka-for-scala-3" target="_blank"
 							rel="noopener noreferrer">Blog post that originated this talk</a></li>
 				</ul>
@@ -480,9 +543,8 @@ val y = x.varArgs(1L)</code></pre>
 			</section>
 		</div>
 		<footer>
-			Josep Prat &mdash; @jlprat
+			Josep Prat &mdash; @jlprat &mdash; #KafkaToScala3 &mdash; ScalaCon
 		</footer>
-
 	</div>
 
 	<script src="reveal.js/dist/reveal.js"></script>
