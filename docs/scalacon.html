@@ -223,7 +223,11 @@
 				<h3 class="r-fit-text white_smoke_shadow">Challenges during the PoC</h3>
 			</section>
 			<section>
-				<h3>Gradle</h3>
+				<h3>Several moons ago...</h3>
+				<p>Decided to upgrade Apache Kafka to Scala 3, and started a PR...</p>
+			</section>
+			<section>
+				<h3>1. Gradle</h3>
 				<p>How complicated could it be to compile using the Scala 3 compiler instead?</p>
 			</section>
 			<section>
@@ -253,8 +257,8 @@
 				<p>From version: 7.3.0</p>
 			</section>
 			<section>
-				<h3>Unit SAM and overloads</h3>
-				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|28-38|5-9|10|12-17|18|20-25|26">object Reproducer {
+				<h3>2. Unit SAM and overloads</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|28-38|33,37|5-9|10|12-17|18|20-25|26">object Reproducer {
   // assertThrows has 3 overloads, 2 with 3 parameters and
   // 1 with only 2 parameters.
 
@@ -303,7 +307,7 @@
 			</section>
 			<section>
 				<h3>Workaround</h3>
-				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-3|5-7|9-11">object Reproducer {
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-3|5-7|6|9-11|10">object Reproducer {
 	assertThrows(classOf[IllegalArgumentException],
 							 () => 3)
 
@@ -324,7 +328,7 @@
 				<p>It conflicts with existing Scala 3 code making functional code fail.</p>
 			</section>
 			<section>
-				<h3>No static forwarder methods in trait companion</h3>
+				<h3>3. No static forwarder methods in trait companion</h3>
 				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|1-3|8-10|5-7">object ObjectTraitPair {
 	val Constant: String = "Some Text"
 }
@@ -359,8 +363,8 @@ trait ObjectTraitPair {
 				<p>From Scala version: 3.1.0</p>
 			</section>
 			<section>
-				<h3>Variable handling in super calls</h3>
-				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-3|4-6">class ClassWithLambda(sup: () => Long)
+				<h3>4. Variable handling in super calls</h3>
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|1|2-3|4-6">class ClassWithLambda(sup: () => Long)
 class ClassWithVar(var msg: String)
 		  extends ClassWithLambda(() => 1)
 val _ = new ClassWithVar("foo")
@@ -369,7 +373,7 @@ val _ = new ClassWithVar("foo")
 			</section>
 			<section>
 				<h3>But this works!</h3>
-				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-5">class ClassWithLambda(sup: () => Long)
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2-5|2,4">class ClassWithLambda(sup: () => Long)
 class ClassWithVar(_msg: String) 
       extends ClassWithLambda(() => 1) {
 	var msg: String = _msg
@@ -383,7 +387,7 @@ val _ = new ClassWithVar("foo")</code></pre>
 				<p>From Scala version: 3.1.1</p>
 			</section>
 			<section>
-				<h3>Handle Java varargs with parametrized T...</h3>
+				<h3>5. Handle Java varargs with parametrized T...</h3>
 				<p>Given this Java class:</p>
 				<pre data-d="code-animation"><code class="java" data-trim data-line-numbers="">public class TypedVarargs&lt;V&gt; {
 	public TypedVarargs&lt;V&gt; varArgs(V thing, V... things) {
@@ -391,7 +395,7 @@ val _ = new ClassWithVar("foo")</code></pre>
 		}
 	}</code></pre>
 				<p>And this Scala one:</p>
-				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2|3-4">val x = new TypedVarargs[Long]()
+				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|1|2|3-4">val x = new TypedVarargs[Long]()
 val y = x.varArgs(1L)
 // This throws at runtime: 
 // java.lang.ClassCastException: [J cannot be cast to [Ljava.lang.Object;</code></pre>
@@ -408,7 +412,7 @@ val y = x.varArgs(1L)</code></pre>
 				<p>From Scala version: 3.1.1</p>
 			</section>
 			<section>
-				<h3>Type erased for by-name parameters</h3>
+				<h3>6. Type erased for by-name parameters</h3>
 				<p>Given this code:</p>
 				<pre data-d="code-animation"><code class="scala" data-trim data-line-numbers="|2">object ByNameParam {
 	def byNameParam(str: => String): Unit = {}
